@@ -2,12 +2,14 @@ import './App.css'
 import React, { useState } from 'react'
 import Header from './Header'
 import AgGrid from './AgGrid'
+import Footer from './Footer'
 import { Button } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Form from 'react-bootstrap/Form'
 
 function App() {
   const [file, setFile] = useState(null)
+  const [rowData, setRowData] = useState([])
 
   const handleFileChange = e => {
     setFile(e.target.files[0])
@@ -17,13 +19,14 @@ function App() {
     const formData = new FormData()
     formData.append('file', file)
 
-    fetch('http://example.com/upload', {
+    fetch('./uploadFile', {
       method: 'POST',
       body: formData
     })
       .then(response => {
         /* eslint-disable no-console */
         console.log(response)
+        setRowData(response)
         /* eslint-enable no-console */
       })
       .catch(error => {
@@ -58,8 +61,9 @@ function App() {
         </Button>
       </div>
       <div className='m-4'>
-        <AgGrid ref={agGridRef} />
+        <AgGrid ref={agGridRef} rowData={rowData} />
       </div>
+      <Footer />
     </div>
   )
 }

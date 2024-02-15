@@ -17,6 +17,7 @@ import org.springframework.boot.actuate.endpoint.web.annotation.ControllerEndpoi
 import org.springframework.boot.actuate.endpoint.web.annotation.ServletEndpointsSupplier;
 import org.springframework.boot.actuate.endpoint.web.servlet.WebMvcEndpointHandlerMapping;
 import org.springframework.boot.autoconfigure.web.ConditionalOnEnabledResourceChain;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -25,6 +26,8 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.resource.ResourceUrlEncodingFilter;
+
+import com.broadridge.mbse.pdfextract.filter.CORSFilter;
 
 
 @Configuration
@@ -98,4 +101,13 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 						ManagementPortType.get(environment).equals(ManagementPortType.DIFFERENT));
 
 	}
+	
+	@Bean
+	FilterRegistrationBean<CORSFilter> corsFilter() {
+	   FilterRegistrationBean<CORSFilter> filterRegistrationBean = new FilterRegistrationBean();
+	   filterRegistrationBean.setFilter(new CORSFilter());
+	   filterRegistrationBean.addUrlPatterns("/*");
+	   filterRegistrationBean.setOrder(0);
+	   return filterRegistrationBean;
+	 }
 }

@@ -3,55 +3,19 @@ import 'ag-grid-community/styles/ag-grid.css'
 import 'ag-grid-community/styles/ag-theme-balham.css'
 import React, { useCallback, useRef } from 'react'
 
-const AgGrid = React.forwardRef((props, ref) => {
+const AgGrid = React.forwardRef((props, ref, rowData) => {
   const gridRef = useRef()
 
-  const rowData = [
-    {
-      CUSIP: 'M15342104',
-      ACCOUNT: 'focus',
-      SETTLEMENT: '8000',
-      PART: 'ford',
-      SECURITYDESCRIPTION: 'focus',
-      QUANTITY: '8000',
-      AMOUNT: 'ford',
-      IDCONTROL: 'focus',
-      TAG: '8000'
-    },
-    {
-      CUSIP: 'ford',
-      ACCOUNT: 'focus',
-      SETTLEMENT: '8000',
-      PART: 'ford',
-      SECURITYDESCRIPTION: 'focus',
-      QUANTITY: '8000',
-      AMOUNT: 'ford',
-      IDCONTROL: 'focus',
-      TAG: '8000'
-    },
-    {
-      CUSIP: 'ford',
-      ACCOUNT: 'focus',
-      SETTLEMENT: '8000',
-      PART: 'ford',
-      SECURITYDESCRIPTION: 'focus',
-      QUANTITY: '8000',
-      AMOUNT: 'ford',
-      IDCONTROL: 'focus',
-      TAG: '8000'
-    }
-  ]
-
   const columnDefs = [
-    { field: 'CUSIP' },
-    { field: 'ACCOUNT', maxWidth: 120 },
-    { field: 'SETTLEMENT' },
-    { field: 'PART', maxWidth: 120 },
-    { field: 'SECURITYDESCRIPTION' },
-    { field: 'QUANTITY' },
-    { field: 'AMOUNT' },
-    { field: 'IDCONTROL ' },
-    { field: 'TAG' }
+    { field: 'cusip' },
+    { field: 'accountNo', maxWidth: 120 },
+    { field: 'settleMent' },
+    { field: 'partNo', maxWidth: 120 },
+    { field: 'securityDesc' },
+    { field: 'quantity' },
+    { field: 'amount' },
+    { field: 'idControl' },
+    { field: 'tagNo' }
   ]
 
   const exportData = useCallback(() => {
