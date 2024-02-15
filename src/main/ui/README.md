@@ -1,32 +1,70 @@
-**ESLint and Prettier**
+# Getting Started with Create React App
 
-_ESLint is a static code analysis tool for identifying problematic patterns found in JavaScript code. _
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-_Prettier is an opinionated code formatter_
+## Available Scripts
 
-**Linting and formatting commands:**
+In the project directory, you can run:
 
-These commands to be used for fixing any auto linting fixes and auto formatting the code
+### `npm start`
 
-| Lint   | npm run lint   |
-| ------ | -------------- |
-| Format | npm run format |
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-**ESLint Rules to be followed:**
+The page will reload when you make changes.\
+You may also see any lint errors in the console.
 
+### `npm test`
 
-| Rule                 | Description                                                                                                                                                                                                            | Reference                                                                                                |
-| -------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
-| eqeqeq               | This rule is aimed at eliminating the type-unsafe equality operators. Example: foo === truebananas !== 1                                                                                                               | [https://eslint.org/docs/rules/eqeqeq](https://eslint.org/docs/rules/eqeqeq)                             |
-| no-undef             | This rule can help you locate potential ReferenceErrors resulting from misspellings of variable and parameter names, or accidental implicit globals                                                                    | [https://eslint.org/docs/rules/no-undef](https://eslint.org/docs/rules/no-undef)                         |
-| no-caller            | This rule is aimed at discouraging the use of deprecated and sub-optimal code by disallowing the use of arguments.caller and arguments.callee                                                                          | [https://eslint.org/docs/rules/no-caller](https://eslint.org/docs/rules/no-caller)                       |
-| no-bitwise           | This rule disallows bitwise operators.                                                                                                                                                                                 | [https://eslint.org/docs/rules/no-bitwise](https://eslint.org/docs/rules/no-bitwise)                     |
-| no-cond-assign       | This rule disallows ambiguous assignment operators in test conditions of if, for, while, and do...while statements.                                                                                                    | [https://eslint.org/docs/rules/no-cond-assign](https://eslint.org/docs/rules/no-cond-assign)             |
-| no-return-await      | This rule aims to prevent a likely common performance hazard due to a lack of understanding of the semantics of async function.                                                                                        | [https://eslint.org/docs/rules/no-return-await](https://eslint.org/docs/rules/no-return-await)           |
-| no-duplicate-imports | This rule requires that all imports from a single module exists in a single import statement.                                                                                                                          | [https://eslint.org/docs/rules/no-duplicate-imports](https://eslint.org/docs/rules/no-duplicate-imports) |
-| no-console           | This rule disallows calls to methods of the console object.Note: Only Warn and Error consoles are allowed                                                                                                              | [https://eslint.org/docs/rules/no-console](https://eslint.org/docs/rules/no-console)                     |
-| prefer-template      | This rule is aimed to flag usage of + operators with strings.                                                                                                                                                          | [https://eslint.org/docs/rules/prefer-template](https://eslint.org/docs/rules/prefer-template)           |
-| object-shorthand     | This rule enforces the use of the shorthand syntax. This applies to all methods (including generators) defined in object literals and any properties defined where the key name matches name of the assigned variable. | [https://eslint.org/docs/rules/object-shorthand](https://eslint.org/docs/rules/object-shorthand)         |
-| prefer-const         | This rule is aimed at flagging variables that are declared using let keyword, but never reassigned after the initial assignment.                                                                                       | [https://eslint.org/docs/rules/prefer-const](https://eslint.org/docs/rules/prefer-const)                 |
-| no-var               | This rule is aimed at discouraging the use of var and encouraging the use of const or let instead.                                                                                                                     | [https://eslint.org/docs/rules/no-var](https://eslint.org/docs/rules/no-var)                             |
-| max-len              | This rule enforces a maximum line length to increase code readability and maintainability. The length of a line is defined as the number of Unicode characters in the line.                                            | [https://eslint.org/docs/rules/max-len](https://eslint.org/docs/rules/max-len)                           |
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+
+### `npm run build`
+
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
+
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
+
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+### `npm run eject`
+
+**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+
+If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+
+You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+
+## Learn More
+
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+
+To learn React, check out the [React documentation](https://reactjs.org/).
+
+### Code Splitting
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+
+### Analyzing the Bundle Size
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+
+### Making a Progressive Web App
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+
+### Advanced Configuration
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+
+### Deployment
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+
+### `npm run build` fails to minify
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)

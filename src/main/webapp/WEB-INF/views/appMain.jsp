@@ -3,13 +3,7 @@
 
 <script type="text/javascript">
 var _contextPath = '${pageContext.request.contextPath}';
-var _apiGatewayUrl = '${apiGatewayUrl}';
-var _mbsAppName= '${mbsAppName}';
 var _activeProfiles= '${activeProfiles}';
-var _isApiGateway = '${isApiGateway}';
-var _accessTokenValidititySeconds = '${accessTokenValidititySeconds}';
-var _refreshTokenValiditySeconds = '${refreshTokenValiditySeconds}';
-var _webIdleSessionTimeOutSeconds ='${webIdleSessionTimeOutSeconds}';
 var _enableSecureCookie = '${enableSecureCookie}';
 var _enableHttpOnlyCookie = '${enableHttpOnlyCookie}';
 var _verticalLinesEnable = '${verticalLinesEnable}'
@@ -97,13 +91,7 @@ body {
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-        <c:if test="${isApiGateway == true}">
-    	    <link rel="shortcut icon" href="<c:url value="/${mbsAppName}/web-app/static/images/favicon.ico"/>" type="image/x-icon">
-    	</c:if> 
-    	       			
-   		 <c:if test="${isApiGateway == false}">
     	    <link rel="shortcut icon" href="<c:url value="/static/images/favicon.ico"/>" type="image/x-icon">
-   		 </c:if> 
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
@@ -131,7 +119,7 @@ body {
             <p>Loading, Please wait...</p>
             <span><i></i><i></i></span>
         </div>
-      <div id="root-app"></div>
+      <div id="root"></div>
      <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
@@ -141,12 +129,7 @@ body {
 
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
-    -->   
-    <c:if test="${isApiGateway == true}">
-    	<script charset="utf-8" type="text/javascript" src="<c:url value="/${mbsAppName}/web-app/static/appMain.js"/>"></script>
-    </c:if>
-    <c:if test="${isApiGateway == false}">
-    	<script charset="utf-8" type="text/javascript" src="<c:url value="/static/appMain.js"/>"></script>
-    </c:if> 
+    -->
+    <script charset="utf-8" type="text/javascript" src="<c:url value="/static/appMain.js"/>"></script>
   </body>
 </html>

@@ -31,3 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
+bin/main/java/com/broadridge/mbse/pdfextract/config/WebMvcConfiguration.class
+*.class
+bin/
