@@ -2,10 +2,12 @@ import './App.css'
 import React, { useState } from 'react'
 import Header from './Header'
 import AgGrid from './AgGrid'
+import { errorToast } from './toast'
 import Footer from './Footer'
 import { Button } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Form from 'react-bootstrap/Form'
+import Axios from 'axios'
 
 function App() {
   const [file, setFile] = useState(null)
@@ -19,21 +21,14 @@ function App() {
     const formData = new FormData()
     formData.append('file', file)
 
-    fetch('./uploadFile', {
-      method: 'POST',
-      body: formData
-    })
-      .then(response => {
+    Axios.post('http://localhost:8080/uploadFile', formData).then(
+      response => {
         /* eslint-disable no-console */
-        console.log(response)
-        setRowData(response)
-        /* eslint-enable no-console */
-      })
-      .catch(error => {
-        /* eslint-disable no-console */
-        console.log(error)
-        /* eslint-enable no-console */
-      })
+        console.log(response.data)
+        setRowData(response.data)
+      },
+      () => errorToast('Holiday List retrieval failed')
+    )
   }
   const handleExport = () => {
     agGridRef.current.exportData()

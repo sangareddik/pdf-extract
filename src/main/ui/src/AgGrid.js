@@ -7,15 +7,15 @@ const AgGrid = React.forwardRef((props, ref, rowData) => {
   const gridRef = useRef()
 
   const columnDefs = [
-    { field: 'cusip' },
-    { field: 'accountNo', maxWidth: 120 },
-    { field: 'settleMent' },
-    { field: 'partNo', maxWidth: 120 },
-    { field: 'securityDesc' },
-    { field: 'quantity' },
-    { field: 'amount' },
-    { field: 'idControl' },
-    { field: 'tagNo' }
+    { headerName: 'Cusip', field: 'cusip' },
+    { headerName: 'Account#', field: 'accountNo', maxWidth: 120 },
+    { headerName: 'Settlement', field: 'settleMent' },
+    { headerName: 'Part#', field: 'partNo', maxWidth: 120 },
+    { headerName: 'Security Desc', field: 'securityDesc' },
+    { headerName: 'Quantity', field: 'quantity' },
+    { headerName: 'Amount', field: 'amount' },
+    { headerName: 'Id Control', field: 'idControl' },
+    { headerName: 'Tag#', field: 'tagNo' }
   ]
 
   const exportData = useCallback(() => {
