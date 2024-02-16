@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
+import javax.annotation.PostConstruct;
+
 import org.apache.commons.lang.StringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -35,6 +37,19 @@ public class CageRequster {
 	
 	@Autowired
 	private Environment environment;
+	private String primeBrokerUsername;
+	private String primeBrokerPassword;
+	
+	@PostConstruct
+	public void init() {
+		primeBrokerUsername = environment.getProperty("primebroker.username");
+		primeBrokerPassword = environment.getProperty("primebroker.password");
+		
+		if(StringUtils.isBlank(primeBrokerUsername) || StringUtils.isBlank(primeBrokerPassword)) {
+			logger.error("primebroker.username/primebroker.password is not configured.");
+			throw new RuntimeException("primebroker.username/primebroker.password is not configured.");
+		}
+	}
 	
 	private static final Logger logger = LoggerFactory.getLogger(CageRequster.class);
 	public WebDriver launchBroswer() {
@@ -46,7 +61,7 @@ public class CageRequster {
 		ChromeOptions options = new ChromeOptions();
 		options.addArguments("--remote-allow-origins=*");
 		
-		if(StringUtils.equalsIgnoreCase("TRUE", environment.getProperty("webdriver.headless.option", "true"))) {
+		if(StringUtils.equalsIgnoreCase("TRUE", environment.getProperty("webdriver.headless.option", "false"))) {
 			options.addArguments("--headless");
 			logger.info("WebDriver launched as headless.");
 		}
@@ -65,8 +80,8 @@ public class CageRequster {
 	
 	public void loginAndMoveToRDMaster(UtilActions utilAct, WebDriver driver) throws Throwable {
 		
-		utilAct.SendKeys(driver.findElement(By.xpath("//input[@name='USER']")), "V330QANN");
-		utilAct.SendKeys(driver.findElement(By.xpath("//input[@name='PASSWORD']")), "Date1225");
+		utilAct.SendKeys(driver.findElement(By.xpath("//input[@name='USER']")), primeBrokerUsername);
+		utilAct.SendKeys(driver.findElement(By.xpath("//input[@name='PASSWORD']")), primeBrokerPassword);
 		utilAct.ClickAction(driver.findElement(By.xpath("//input[@value='Login']")));
 		utilAct.moveToElement(driver.findElement(By.xpath("//span[text()='Clearance & Settlements']")), driver);
 		utilAct.actionClick(
