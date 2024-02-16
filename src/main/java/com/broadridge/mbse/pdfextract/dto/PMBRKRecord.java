@@ -29,6 +29,7 @@ public class PMBRKRecord {
 	private String tagNo;
 	private String codStr;
 	private String clientNo;
+	private String matchedOrUnmatched;
 	
 	public String getCusip() {
 		return cusip;
@@ -95,6 +96,12 @@ public class PMBRKRecord {
 	}
 	public void setClientNo(String clientNo) {
 		this.clientNo = clientNo;
+	}
+	public String getMatchedOrUnmatched() {
+		return matchedOrUnmatched;
+	}
+	public void setMatchedOrUnmatched(String matchedOrUnmatched) {
+		this.matchedOrUnmatched = matchedOrUnmatched;
 	}
 	
 

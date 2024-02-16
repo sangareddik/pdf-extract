@@ -61,8 +61,8 @@ public class CageRequster {
 				.findElement(By.xpath("//object[@class='show-frame'][contains(@data,'CAGE/main.action')]"));
 		driver.switchTo().frame(frameElement);
 		for (PMBRKRecord pmbrkRecord : pmbrkRecords) {
-
-			if (pmbrkRecord.getTagNo() == null || pmbrkRecord.getTagNo().isEmpty()) {
+			
+			if (StringUtils.equalsIgnoreCase("UNMATCH", pmbrkRecord.getMatchedOrUnmatched()) && StringUtils.isBlank(pmbrkRecord.getTagNo()) ) {
 
 				utilAct.SendKeys(driver.findElement(By.xpath("//tr/td/input[@name='securityCode']")),
 						pmbrkRecord.getCusip().trim());
