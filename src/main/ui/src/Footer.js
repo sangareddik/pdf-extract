@@ -5,8 +5,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 const Footer = () => {
   return (
     <footer
-      className='bg-primary text-light p-0 m-0 mt-2 d-flex justify-content-center align-items-baseline'
-      style={{ fontSize: '0.8rem' }}
+      className='text-light p-0 m-0 mt-2 d-flex justify-content-center align-items-baseline'
+      style={{ fontSize: '0.8rem', backgroundColor: '#006392' }}
     >
       <p className='my-0'>
         {'\u00A9'}&nbsp;{new Date().getFullYear()} Broadridge Financial Solutions, Inc.{' '}
