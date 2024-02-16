@@ -84,7 +84,8 @@ public class CageRequster {
 		driver.switchTo().frame(frameElement);
 		for (PMBRKRecord pmbrkRecord : pmbrkRecords) {
 			
-			if (StringUtils.isBlank(pmbrkRecord.getTagNo()) ) {
+			if (StringUtils.equalsIgnoreCase("UNMATCH", pmbrkRecord.getMatchedOrUnmatched()) &&
+				StringUtils.isBlank(pmbrkRecord.getTagNo()) ) {
 				String settlement = pmbrkRecord.getSettleMent().trim();
 				Date date = simpleDateFormatYY.parse(settlement);
 				String settlmentYYYY = simpleDateFormatYYYY.format(date);
