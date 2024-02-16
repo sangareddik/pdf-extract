@@ -27,6 +27,9 @@ public class PMBRKRecord {
 	private String amount;
 	private String idControl;
 	private String tagNo;
+	private String codStr;
+	private String clientNo;
+	
 	public String getCusip() {
 		return cusip;
 	}
@@ -81,7 +84,18 @@ public class PMBRKRecord {
 	public void setTagNo(String tagNo) {
 		this.tagNo = tagNo;
 	}
-	
+	public String getCodStr() {
+		return codStr;
+	}
+	public void setCodStr(String codStr) {
+		this.codStr = codStr;
+	}
+	public String getClientNo() {
+		return clientNo;
+	}
+	public void setClientNo(String clientNo) {
+		this.clientNo = clientNo;
+	}
 	
 
 }
