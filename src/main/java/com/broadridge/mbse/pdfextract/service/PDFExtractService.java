@@ -37,7 +37,7 @@ public class PDFExtractService {
 	@SuppressWarnings({ "resource", "rawtypes" })
 	public List<PMBRKRecord> parseAsPmbrkRecords(MultipartFile multipartFile) throws Throwable {
 		List<PMBRKRecord> pmbrkRecords = new ArrayList<>();
-		logger.info("PDF File '{}' process started." , multipartFile.getName());
+		logger.info("PDF File '{}' process started." , multipartFile.getOriginalFilename());
 		PDDocument pdfDocument = PDDocument.load(multipartFile.getInputStream());
 
 		PDFTextStripper pDFTextStripper = new PDFTextStripper();
@@ -128,16 +128,16 @@ public class PDFExtractService {
 
 		}
 		} catch(Throwable throwable) {
-			logger.info("PDF File '{}' process failed." , multipartFile.getName());
+			logger.info("PDF File '{}' process failed." , multipartFile.getOriginalFilename());
 			throw throwable;
 		} finally {
 			if(Objects.nonNull(objectExtractor)) objectExtractor.close();
 			if(Objects.nonNull(pdfDocument)) pdfDocument.close();
 		}
 		
-		logger.info("PDF File '{}' parsed successfully and sending to case system." , multipartFile.getName());
+		logger.info("PDF File '{}' parsed successfully and sending to case system." , multipartFile.getOriginalFilename());
 		cageRequster.updateTagNum(pmbrkRecords);
-		logger.info("PDF File '{}' processed successfully.", multipartFile.getName());
+		logger.info("PDF File '{}' processed successfully.", multipartFile.getOriginalFilename());
 		return pmbrkRecords;
 	}
 

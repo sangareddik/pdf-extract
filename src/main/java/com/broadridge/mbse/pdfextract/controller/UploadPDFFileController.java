@@ -27,7 +27,7 @@ public class UploadPDFFileController {
 	@PostMapping(value="/uploadFile",  consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}, 
 			produces = {MediaType.APPLICATION_JSON_VALUE})
 	public List<PMBRKRecord> handleFileUpload(@RequestParam(value = "file", required = true) MultipartFile file, HttpServletRequest request) throws Throwable {
-		logger.info("PDF File Uploaded:{}", file.getName());
+		logger.info("PDF File Uploaded:{}", file.getOriginalFilename());
 		return pdfExtractService.parseAsPmbrkRecords(file);
 	}
 
