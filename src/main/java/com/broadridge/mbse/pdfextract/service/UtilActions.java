@@ -96,8 +96,7 @@ public class UtilActions {
 					Thread.sleep(2000);
 					this.waitForPageLoad();
 				} else
-					throw new RuntimeException();
-//			}			
+					throw new RuntimeException();		
 			} catch (Exception e) {
 				logger.error("", e);
 			}
@@ -106,7 +105,7 @@ public class UtilActions {
 
 	}
 
-	public void moveToElement(WebElement element, WebDriver driver) throws Throwable {
+	public void moveToElement(WebElement element, WebDriver driver) {
 
 		try {
 			Wait<WebDriver> wait = new WebDriverWait(driver, Duration.ofSeconds(10));
@@ -120,7 +119,7 @@ public class UtilActions {
 
 	}
 
-	public void actionClick(WebElement element, WebDriver driver) throws Throwable {
+	public void actionClick(WebElement element, WebDriver driver) {
 
 		try {
 			Wait<WebDriver> wait = new WebDriverWait(driver, Duration.ofSeconds(10));

@@ -36,15 +36,18 @@ public class PDFExtractService {
 
 	@SuppressWarnings({ "resource", "rawtypes" })
 	public List<PMBRKRecord> parseAsPmbrkRecords(MultipartFile multipartFile) throws Throwable {
-
+		List<PMBRKRecord> pmbrkRecords = new ArrayList<>();
+		logger.info("PDF File '{}' process started." , multipartFile.getName());
 		PDDocument pdfDocument = PDDocument.load(multipartFile.getInputStream());
 
 		PDFTextStripper pDFTextStripper = new PDFTextStripper();
 
 		ObjectExtractor objectExtractor = new ObjectExtractor(pdfDocument);
+		
+		try {
 		int noOfPages = pdfDocument.getNumberOfPages();
 
-		List<PMBRKRecord> pmbrkRecords = new ArrayList<>();
+		
 		for (int pageNo = 1; pageNo <= noOfPages; pageNo++) {
 			Page page = objectExtractor.extract(pageNo);
 
@@ -89,13 +92,19 @@ public class PDFExtractService {
 						pmbrkRecord.setCusip(row.get(0).getText().trim());
 						pmbrkRecord.setAccountNo(row.get(1).getText().trim());
 						
+						int secDescIndx = 3;
+						
 						if(row.get(2).getText().trim().length()>8) {
 							pmbrkRecord.setSettleMent(StringUtils.substring(row.get(2).getText().trim(), 0, 8));
 							pmbrkRecord.setPartNo(StringUtils.substring(row.get(2).getText().trim(), 8, 14));
 							pmbrkRecord.setSecurityDesc(StringUtils.substring(row.get(2).getText(), 14));
 						} else {
 							pmbrkRecord.setSettleMent(row.get(2).getText().trim());
-							if(row.get(3).getText().length()>=6) {
+							if(row.get(3).getText().length()==6) {
+								pmbrkRecord.setPartNo(row.get(3).getText().substring(0, 6).trim());
+								pmbrkRecord.setSecurityDesc(row.get(4).getText().trim());
+								secDescIndx = 4;
+							} else if(row.get(3).getText().length()>6) {
 								pmbrkRecord.setPartNo(row.get(3).getText().substring(0, 6).trim()); // 000696 ***AGRICULTURE &
 								pmbrkRecord.setSecurityDesc(row.get(3).getText().substring(6).trim());
 							} else {
@@ -104,8 +113,8 @@ public class PDFExtractService {
 							}
 						}																	// NATURAL
 						
-						pmbrkRecord.setQuantity(row.get(4).getText().trim());
-						String[] amtIdCtrlTagNo = row.get(5).getText().split(" ");
+						pmbrkRecord.setQuantity(row.get(++secDescIndx).getText().trim());
+						String[] amtIdCtrlTagNo = row.get(++secDescIndx).getText().split(" ");
 						if (amtIdCtrlTagNo.length >= 1)
 							pmbrkRecord.setAmount(amtIdCtrlTagNo[0].trim());// $6,538.95 524959818 240206A8072
 						if (amtIdCtrlTagNo.length >= 2)
@@ -118,8 +127,18 @@ public class PDFExtractService {
 			}
 
 		}
-		//return pmbrkRecords;
-		return cageRequster.updateTagNum(pmbrkRecords);
+		} catch(Throwable throwable) {
+			logger.info("PDF File '{}' process failed." , multipartFile.getName());
+			throw throwable;
+		} finally {
+			if(Objects.nonNull(objectExtractor)) objectExtractor.close();
+			if(Objects.nonNull(pdfDocument)) pdfDocument.close();
+		}
+		
+		logger.info("PDF File '{}' parsed successfully and sending to case system." , multipartFile.getName());
+		cageRequster.updateTagNum(pmbrkRecords);
+		logger.info("PDF File '{}' processed successfully.", multipartFile.getName());
+		return pmbrkRecords;
 	}
 
 }
