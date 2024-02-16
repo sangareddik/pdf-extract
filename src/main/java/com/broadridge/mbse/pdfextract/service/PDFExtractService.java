@@ -88,24 +88,29 @@ public class PDFExtractService {
 						pmbrkRecord.setClientNo(client);
 						pmbrkRecord.setCusip(row.get(0).getText().trim());
 						pmbrkRecord.setAccountNo(row.get(1).getText().trim());
-						pmbrkRecord.setSettleMent(row.get(2).getText().trim());
 						
-						if(row.get(3).getText().length()>=6) {
-							pmbrkRecord.setPartNo(row.get(3).getText().substring(0, 6).trim()); // 000696 ***AGRICULTURE &
-							pmbrkRecord.setSecurityDesc(row.get(3).getText().substring(6).trim());
+						if(row.get(2).getText().trim().length()>8) {
+							pmbrkRecord.setSettleMent(StringUtils.substring(row.get(2).getText().trim(), 0, 8));
+							pmbrkRecord.setPartNo(StringUtils.substring(row.get(2).getText().trim(), 8, 14));
+							pmbrkRecord.setSecurityDesc(StringUtils.substring(row.get(2).getText(), 14));
 						} else {
-							pmbrkRecord.setPartNo(row.get(3).getText().trim());
-							logger.error("Part No and desc length is not 6:" + row.get(3).getText());
-						}
-																							// NATURAL
+							pmbrkRecord.setSettleMent(row.get(2).getText().trim());
+							if(row.get(3).getText().length()>=6) {
+								pmbrkRecord.setPartNo(row.get(3).getText().substring(0, 6).trim()); // 000696 ***AGRICULTURE &
+								pmbrkRecord.setSecurityDesc(row.get(3).getText().substring(6).trim());
+							} else {
+								pmbrkRecord.setPartNo(row.get(3).getText().trim());
+								logger.error("Part No and desc length is not 6:" + row.get(3).getText());
+							}
+						}																	// NATURAL
 						
 						pmbrkRecord.setQuantity(row.get(4).getText().trim());
 						String[] amtIdCtrlTagNo = row.get(5).getText().split(" ");
-						if (amtIdCtrlTagNo.length > 1)
+						if (amtIdCtrlTagNo.length >= 1)
 							pmbrkRecord.setAmount(amtIdCtrlTagNo[0].trim());// $6,538.95 524959818 240206A8072
-						if (amtIdCtrlTagNo.length > 2)
+						if (amtIdCtrlTagNo.length >= 2)
 							pmbrkRecord.setIdControl(amtIdCtrlTagNo[1].trim());
-						if (amtIdCtrlTagNo.length > 3)
+						if (amtIdCtrlTagNo.length >= 3)
 							pmbrkRecord.setTagNo(amtIdCtrlTagNo[2].trim());
 						pmbrkRecords.add(pmbrkRecord);
 					}
@@ -113,8 +118,8 @@ public class PDFExtractService {
 			}
 
 		}
-		return pmbrkRecords;
-		//return cageRequster.updateTagNum(pmbrkRecords);
+		//return pmbrkRecords;
+		return cageRequster.updateTagNum(pmbrkRecords);
 	}
 
 }
