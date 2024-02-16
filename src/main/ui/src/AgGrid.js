@@ -3,7 +3,7 @@ import 'ag-grid-community/styles/ag-grid.css'
 import 'ag-grid-community/styles/ag-theme-balham.css'
 import React, { useCallback, useRef } from 'react'
 
-const AgGrid = React.forwardRef((props, ref, rowData) => {
+const AgGrid = React.forwardRef((props, ref) => {
   const gridRef = useRef()
 
   const columnDefs = [
@@ -33,7 +33,7 @@ const AgGrid = React.forwardRef((props, ref, rowData) => {
 
   return (
     <div className='ag-theme-balham' style={{ height: 580, width: 1650 }}>
-      <AgGridReact ref={gridRef} rowData={rowData} columnDefs={columnDefs} animateRows={true} />
+      <AgGridReact ref={gridRef} rowData={props.rowData} columnDefs={columnDefs} animateRows={true} />
     </div>
   )
 })

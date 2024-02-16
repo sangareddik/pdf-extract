@@ -21,13 +21,17 @@ function App() {
     const formData = new FormData()
     formData.append('file', file)
 
-    Axios.post('http://localhost:8080/uploadFile', formData).then(
+    Axios.post('./uploadFile', formData).then(
       response => {
         /* eslint-disable no-console */
         console.log(response.data)
-        setRowData(response.data)
+        if (response.data.statusCode === undefined && response.data.statusCode !== null) setRowData(response.data)
+        else {
+          setRowData([])
+          errorToast(response.data.successOrInfoMessage)
+        }
       },
-      () => errorToast('Holiday List retrieval failed')
+      () => errorToast('Exception Occured.')
     )
   }
   const handleExport = () => {

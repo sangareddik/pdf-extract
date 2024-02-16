@@ -12,7 +12,7 @@ const param = {
   position: toast.POSITION.TOP_RIGHT,
   closeButton: true,
   pauseOnHover: true,
-  autoClose: 3000
+  autoClose: 30000
 }
 const classNames = 'text-light'
 const contentConfig = [
