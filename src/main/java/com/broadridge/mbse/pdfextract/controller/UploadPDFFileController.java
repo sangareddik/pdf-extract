@@ -1,6 +1,5 @@
 package com.broadridge.mbse.pdfextract.controller;
 
-import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.broadridge.mbse.pdfextract.dto.PMBRKRecord;
-import com.broadridge.mbse.pdfextract.exception.InvalidPDFException;
 import com.broadridge.mbse.pdfextract.service.PDFExtractService;
 
 @RestController
@@ -24,7 +22,7 @@ public class UploadPDFFileController {
 	
 	@PostMapping(value="/uploadFile",  consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}, 
 			produces = {MediaType.APPLICATION_JSON_VALUE})
-	public List<PMBRKRecord> handleFileUpload(@RequestParam(value = "file", required = true) MultipartFile file, HttpServletRequest request) throws IOException, InvalidPDFException {
+	public List<PMBRKRecord> handleFileUpload(@RequestParam(value = "file", required = true) MultipartFile file, HttpServletRequest request) throws Throwable {
 		return pdfExtractService.parseAsPmbrkRecords(file);
 	}
 

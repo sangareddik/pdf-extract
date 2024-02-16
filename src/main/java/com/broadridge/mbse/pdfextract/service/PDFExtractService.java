@@ -1,16 +1,15 @@
 package com.broadridge.mbse.pdfextract.service;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.broadridge.mbse.pdfextract.dto.PMBRKRecord;
@@ -27,10 +26,13 @@ public class PDFExtractService {
 	
 	@Autowired
 	private TableExtractor tableExtractor;
+	
+	@Autowired
+	private CageRequster cageRequster;
 
 	
 	@SuppressWarnings({ "resource", "rawtypes" })
-	public List<PMBRKRecord> parseAsPmbrkRecords(MultipartFile multipartFile) throws IOException, InvalidPDFException {
+	public List<PMBRKRecord> parseAsPmbrkRecords(MultipartFile multipartFile) throws Throwable {
 		
 		PDDocument pdfDocument = PDDocument.load(multipartFile.getInputStream());
 		
@@ -62,7 +64,8 @@ public class PDFExtractService {
 	        
 	        if (pageText.contains("CLIENT"))
             {
-            	client = StringUtils.trimLeadingWhitespace(pageText.substring(pageText.indexOf("CLIENT NO.:") + 11, pageText.indexOf("PRIME")));
+	        	
+            	client = StringUtils.trim(pageText.substring(pageText.indexOf("CLIENT NO.:") + 11, pageText.indexOf("PRIME")));
             }
             
 	        
@@ -91,7 +94,7 @@ public class PDFExtractService {
 			
 		}
 		
-		return pmbrkRecords;
+		return cageRequster.updateTagNum(pmbrkRecords);
 	}
 	
 	
