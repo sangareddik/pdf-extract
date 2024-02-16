@@ -57,6 +57,7 @@ public class PDFExtractService {
 			String coElement = null;
 			String client = null;
 			if (pageNo == 1 && (Objects.isNull(pageText) || !pageText.contains("PRIME BROKER REPORT"))) {
+				logger.info("Uploaded File '{}' is not a Prime Broker Report.");
 				throw new InvalidPDFException("Uploaded File is not a Prime Broker Report.");
 			}
 
