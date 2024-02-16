@@ -25,7 +25,7 @@ public class CageRequster {
 	public String tagNum = "";
 	public WebDriver driver;
 
-	WebDriver launchBroswer() throws Throwable {
+	public WebDriver launchBroswer() throws Throwable {
 
 		URL url = this.getClass().getClassLoader().getResource("chromedriver.exe");
 		File file = new File(url.getFile());
@@ -33,6 +33,7 @@ public class CageRequster {
 				.usingAnyFreePort();
 		ChromeOptions options = new ChromeOptions();
 		options.addArguments("--remote-allow-origins=*");
+		options.addArguments("--headless");
 		driver = new ChromeDriver(bldr.build(), options);
 
 		driver.get("https://qatd.opsconsole.broadridge.com/oc/login");
@@ -62,7 +63,7 @@ public class CageRequster {
 		for (PMBRKRecord pmbrkRecord : pmbrkRecords) {
 
 			if (pmbrkRecord.getTagNo() == null || pmbrkRecord.getTagNo().isEmpty()) {
-			
+
 				utilAct.SendKeys(driver.findElement(By.xpath("//tr/td/input[@name='securityCode']")),
 						pmbrkRecord.getCusip().trim());
 
@@ -80,14 +81,14 @@ public class CageRequster {
 				utilAct.ClickAction(driver.findElement(By.xpath("//div[@id='moreSearchResults']//div//span")));
 				utilAct.SendKeys(driver.findElement(By.xpath("//input[@name='amountMin']")),
 						pmbrkRecord.getPartNo().trim());
-				executor.executeScript("arguments[0].scrollIntoView();",submit);
+				executor.executeScript("arguments[0].scrollIntoView();", submit);
 				utilAct.ClickAction(submit);
 
 				try {
 					if (utilAct.isDisplayed(driver.findElement(By.xpath("//div[@id='errorDialog']"))))
 
 						pmbrkRecord.setTagNo(StringUtils.EMPTY);
-					
+
 					utilAct.ClickAction(driver.findElement(By.xpath("//span[text()='close']")));
 
 				} catch (NoSuchElementException e) {
@@ -95,11 +96,12 @@ public class CageRequster {
 							driver.findElement(By.xpath("//td[@aria-describedby='grdRdmSummary_tagNumber']//span"))));
 				}
 				utilAct.ClickAction(driver.findElement(By.xpath("//img[@title='Refine Inquiry']")));
-				
+
 			}
 
 		}
-		driver.close();
+		//driver.close();
+		driver.quit();
 		return pmbrkRecords;
 
 	}
