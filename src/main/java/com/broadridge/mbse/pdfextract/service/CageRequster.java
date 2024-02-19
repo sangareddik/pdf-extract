@@ -56,8 +56,8 @@ public class CageRequster {
 	private static final Logger logger = LoggerFactory.getLogger(CageRequster.class);
 	public WebDriver launchBroswer() {
 		logger.info("WebDriver Launching.");
-		URL url = this.getClass().getClassLoader().getResource("chromedriver.exe");
-		File file = new File(url.getFile());
+		//URL url = this.getClass().getClassLoader().getResource("chromedriver.exe");
+		File file = new File("./chromedriver.exe");
 		ChromeDriverService.Builder bldr = (new ChromeDriverService.Builder()).usingDriverExecutable(file)
 				.usingAnyFreePort();
 		ChromeOptions options = new ChromeOptions();
