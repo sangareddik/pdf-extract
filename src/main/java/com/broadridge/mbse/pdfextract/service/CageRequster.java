@@ -62,7 +62,7 @@ public class CageRequster {
 				.usingAnyFreePort();
 		ChromeOptions options = new ChromeOptions();
 		options.addArguments("--remote-allow-origins=*");
-		
+		options.addArguments("--incognito");
 		if(StringUtils.equalsIgnoreCase("TRUE", environment.getProperty("webdriver.headless.option", "false"))) {
 			options.addArguments("--headless");
 			logger.info("WebDriver launched as headless.");
