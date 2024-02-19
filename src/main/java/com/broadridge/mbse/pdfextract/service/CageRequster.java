@@ -39,11 +39,13 @@ public class CageRequster {
 	private Environment environment;
 	private String primeBrokerUsername;
 	private String primeBrokerPassword;
+	private String retriveTagForOnlyUnmatch;
 	
 	@PostConstruct
 	public void init() {
 		primeBrokerUsername = environment.getProperty("primebroker.username");
 		primeBrokerPassword = environment.getProperty("primebroker.password");
+		retriveTagForOnlyUnmatch = environment.getProperty("primebroker.retrive-tag-for-only-unmatch-records" , "true");
 		
 		if(StringUtils.isBlank(primeBrokerUsername) || StringUtils.isBlank(primeBrokerPassword)) {
 			logger.error("primebroker.username/primebroker.password is not configured.");
@@ -99,8 +101,13 @@ public class CageRequster {
 		driver.switchTo().frame(frameElement);
 		for (PMBRKRecord pmbrkRecord : pmbrkRecords) {
 			
-			if (StringUtils.equalsIgnoreCase("UNMATCH", pmbrkRecord.getMatchedOrUnmatched()) &&
-				StringUtils.isBlank(pmbrkRecord.getTagNo()) ) {
+			boolean needRetrival = true;
+			if(StringUtils.equalsIgnoreCase("TRUE", retriveTagForOnlyUnmatch)
+					&& !StringUtils.equalsIgnoreCase("UNMATCH", pmbrkRecord.getMatchedOrUnmatched())) {
+				needRetrival = false;
+			}
+				
+			if ( needRetrival && StringUtils.isBlank(pmbrkRecord.getTagNo()) ) {
 				String settlement = pmbrkRecord.getSettleMent().trim();
 				Date date = simpleDateFormatYY.parse(settlement);
 				String settlmentYYYY = simpleDateFormatYYYY.format(date);
